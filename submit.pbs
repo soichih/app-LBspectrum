@@ -1,0 +1,31 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=16:dc2,walltime=0:25:00
+#PBS -N app-LBspectrum
+#PBS -V
+
+cd $PBS_O_WORKDIR
+
+
+
+module unload python
+module load anaconda2
+
+source activate mindboggle
+
+
+echo "starting main"
+
+(
+
+nohup time python $SCA_SERVICE_DIR/main.py > stdout.log 2> stderr.log
+
+#check for output files
+if [ -s spectrum.json ];
+then
+	echo 0 > finished
+else
+	echo "files missing"
+	echo 1 > finished
+	exit 1
+fi
+) &

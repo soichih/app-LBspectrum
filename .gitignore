@@ -3,3 +3,7 @@ config.json.copy
 products.json
 dwi*
 *~
+finished
+stderr.log
+stdout.log
+spectrum.json

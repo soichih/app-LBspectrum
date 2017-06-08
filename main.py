@@ -13,7 +13,7 @@ with open('config.json') as config_json:
 
 
 all_spectrums = {}
-all_spectrums['subject'] = config['subjname']
+all_spectrums['subject'] = config['subject_name']
 
 for file in glob.glob(config['surfdir'] + "/*.vtk"):
     spectrum = laplace_beltrami.spectrum_from_file(file, 50)

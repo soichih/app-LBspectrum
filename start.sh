@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 #mainly to debug locally
@@ -8,26 +7,6 @@ if [ -z $SCA_SERVICE_DIR ]; then export SCA_SERVICE_DIR=`pwd`; fi
 
 #clean up previous job (just in case)
 rm -f finished
+jobid=`qsub $SCA_SERVICE_DIR/submit.pbs`
+echo $jobid > jobid
 
-module unload python
-module load anaconda2
-
-source activate mindboggle
-
-
-echo "starting main"
-
-(
-
-nohup time python $SCA_SERVICE_DIR/main.py > stdout.log 2> stderr.log
-
-#check for output files
-if [ -s spectrum.json ];
-then
-	echo 0 > finished
-else
-	echo "files missing"
-	echo 1 > finished
-	exit 1
-fi
-) &
