@@ -1,0 +1,21 @@
+{
+  "name": "app-LBspectrum",
+  "version": "1.0.0",
+  "description": "calculate laplace beltrami spectrum",
+  
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "start.sh",
+    "status": "status.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kitchell/app-LBspectrum"
+  },
+  "author": "Lindsey Kitchell <kitchell@indiana.edu>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kitchell/app-LBspectrum/issues"
+  },
+  "homepage": "https://github.com/kitchelll/app-LBspectrum#readme"
+}
