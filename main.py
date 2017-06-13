@@ -1,7 +1,12 @@
 
 import os
 import sys
-sys.path.append("/N/u/kitchell/Karst/github_repos/mindboggle")
+
+env = os.environ['ENV']
+if env == 'IUHPC':
+    sys.path.append("/N/u/kitchell/Karst/github_repos/mindboggle")
+if env == 'VM':
+    sys.path.append("/usr/local/mindboggle")
 
 import glob
 import json

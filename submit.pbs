@@ -3,21 +3,22 @@
 #PBS -N app-LBspectrum
 #PBS -V
 
-cd $PBS_O_WORKDIR
 
 
-
-module unload python
-module load anaconda2
+if [ $ENV == "IUHPC" ]; then
+	cd $PBS_O_WORKDIR
+	module unload python
+	module load anaconda2
+	
+fi
 
 source activate mindboggle
-
 
 echo "starting main"
 
 (
 
-nohup time python $SCA_SERVICE_DIR/main.py > stdout.log 2> stderr.log
+nohup time python $SERVICE_DIR/main.py > stdout.log 2> stderr.log
 
 #check for output files
 if [ -s spectrum.json ];
