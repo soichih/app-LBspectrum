@@ -21,6 +21,7 @@ all_spectrums = {}
 all_spectrums['subject'] = config['subject_name']
 
 for file in glob.glob(config['surfdir'] + "/*.vtk"):
+    print("working on " + file)
     spectrum = laplace_beltrami.spectrum_from_file(file, 50)
     all_spectrums[os.path.basename(file)] = spectrum
 
