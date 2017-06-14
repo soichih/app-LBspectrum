@@ -5,6 +5,8 @@ if [ -z $WORKFLOW_DIR ]; then export WORKFLOW_DIR=`pwd`; fi
 if [ -z $TASK_DIR ]; then export TASK_DIR=`pwd`; fi
 if [ -z $SERVICE_DIR ]; then export SERVICE_DIR=`pwd`; fi
 
+rm -f finished
+
 if [ $ENV == "IUHPC" ]; then
 	#clean up previous job (just in case)
 	rm -f finished
