@@ -16,13 +16,17 @@ from mindboggle.shapes import laplace_beltrami
 with open('config.json') as config_json:
     config = json.load(config_json)
 
+spectrum_size = config['spectrum_size']
+# default = 50 
+normalization = config['normalization']
+# norm options are: None, "area", "index", "areaindex" (default)
 
 all_spectrums = {}
 all_spectrums['subject'] = config['subject_name']
 
 for file in glob.glob(config['surfdir'] + "/*.vtk"):
     print("working on " + file)
-    spectrum = laplace_beltrami.spectrum_from_file(file, 50)
+    spectrum = laplace_beltrami.spectrum_from_file(file, spectrum_size, normalization)
     all_spectrums[os.path.basename(file)] = spectrum
 
 with open( 'spectrum.json', 'w') as fp:
