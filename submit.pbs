@@ -16,9 +16,7 @@ source activate mindboggle
 
 echo "starting main"
 
-(
-
-nohup time python $SERVICE_DIR/main.py > stdout.log 2> stderr.log
+time python $SERVICE_DIR/main.py 
 
 #check for output files
 if [ -s spectrum.json ];
@@ -29,4 +27,3 @@ else
 	echo 1 > finished
 	exit 1
 fi
-) &
