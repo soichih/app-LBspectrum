@@ -11,7 +11,12 @@ if [ $ENV == "IUHPC" ]; then
 	#clean up previous job (just in case)
 	rm -f finished
 	#jobid=`qsub $SERVICE_DIR/submit.pbs`
-	jobid=`qsub -q preempt $SERVICE_DIR/submit.pbs`
+	if [ $HPC == "KARST" ]; then
+		jobid=`qsub -q preempt $SERVICE_DIR/submit.pbs`
+	fi
+	if [ $HPC == "CARBONATE" ]; then
+		jobid=`qsub $SERVICE_DIR/submit.pbs`
+	fi
 	echo $jobid > jobid
 fi
 
