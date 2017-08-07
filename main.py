@@ -22,7 +22,7 @@ normalization = config['normalization']
 # norm options are: None, "area", "index", "areaindex" (default)
 
 all_spectrums = {}
-all_spectrums['subject'] = config['subject_name']
+#all_spectrums['subject'] = config['subject_name']
 
 for file in glob.glob(config['surfdir'] + "/*.vtk"):
     print("working on " + file)
