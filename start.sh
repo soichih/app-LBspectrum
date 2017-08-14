@@ -12,12 +12,14 @@ if [ $ENV == "IUHPC" ]; then
 	rm -f finished
 	#jobid=`qsub $SERVICE_DIR/submit.pbs`
 	if [ $HPC == "KARST" ]; then
-		jobid=`qsub -q preempt $SERVICE_DIR/submit.pbs`
+		#looks like preempt queue has small limit on how many jobs I can queue
+		#jobid=`qsub -q preempt $SERVICE_DIR/submit.pbs`
+		qsub $SERVICE_DIR/submit.pbs > jobid
 	fi
 	if [ $HPC == "CARBONATE" ]; then
-		jobid=`qsub $SERVICE_DIR/submit.pbs`
+		qsub $SERVICE_DIR/submit.pbs > jobid
 	fi
-	echo $jobid > jobid
+	exit $?
 fi
 
 if [ $ENV == "VM" ]; then
