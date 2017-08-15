@@ -22,7 +22,7 @@ if [ -f jobid ]; then
     jobid=`cat jobid`
     if [ -z $jobid ]; then
         echo "jobid is empty.. failed to submit?"
-        exit 3 
+        exit 2
     fi
     jobstate=`qstat -f $jobid | grep job_state | cut -b17`
     if [ -z $jobstate ]; then
