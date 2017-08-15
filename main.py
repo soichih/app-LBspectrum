@@ -4,7 +4,7 @@ import sys
 
 env = os.environ['ENV']
 if env == 'IUHPC':
-    sys.path.append("/N/u/kitchell/Karst/github_repos/mindboggle")
+    sys.path.append("/N/u/brlife/Carbonate/git/mindboggle")
 if env == 'VM':
     sys.path.append("/usr/local/mindboggle")
 
