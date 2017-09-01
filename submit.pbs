@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -l nodes=1:ppn=2:dc2,walltime=5:00:00
+#PBS -l nodes=1:ppn=2:dc2,walltime=8:00:00
 #PBS -N LBspectrum
 #PBS -V
 
@@ -24,11 +24,8 @@ echo "activating mindboggle env"
 source activate mindboggle
 
 echo "starting main"
-time python $SERVICE_DIR/main.py 
-
-#check for output files
-if [ -s spectrum.json ];
-then
+time python -u $SERVICE_DIR/main.py 
+if [ $? -eq 0 ]; then
 	echo 0 > finished
 else
 	echo "files missing"

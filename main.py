@@ -12,22 +12,30 @@ import glob
 import json
 import mindboggle
 from mindboggle.shapes import laplace_beltrami
+from datetime import datetime
 
 with open('config.json') as config_json:
     config = json.load(config_json)
 
 spectrum_size = config['spectrum_size']
-# default = 50 
 normalization = config['normalization']
-# norm options are: None, "area", "index", "areaindex" (default)
+
+print config
 
 all_spectrums = {}
 #all_spectrums['subject'] = config['subject_name']
 
+total=0
 for file in glob.glob(config['surfdir'] + "/*.vtk"):
-    print("working on " + file)
+    print str(total)+" "+file
+    total+=1
+
+count=0
+for file in glob.glob(config['surfdir'] + "/*.vtk"):
+    print (str(datetime.now())+" "+str(count)+" of "+str(total)+" processing "+file)
     spectrum = laplace_beltrami.spectrum_from_file(file, spectrum_size=spectrum_size, normalization=normalization)
     all_spectrums[os.path.basename(file)] = spectrum
+    count+=1
 
 with open( 'spectrum.json', 'w') as fp:
     json.dump(all_spectrums, fp, indent=4)
