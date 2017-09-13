@@ -51,6 +51,34 @@ if [ -f jobid ]; then
     exit 2
 fi
 
+if [ -f slurmjobid ]; then
+    jobid=`cat slurmjobid`
+    jobstate=`squeue -h -j $jobid --Format=statecompact`
+    if [ -z $jobstate ]; then
+        echo "Job removed before completing - maybe timed out?" 
+        exit 2
+    fi
+    if [ $jobstate == "PD" ]; then
+        echo "Waiting in the queue"
+        eststart=`showstart $jobid | grep start`
+        #curl -X POST -H "Content-Type: application/json" -d "{\"msg\":\"Waiting in the PBS queue : $eststart\"}" $PROGRESS_URL
+        exit 0
+    fi
+    if [ $jobstate == "R" ]; then
+	logname="slurm-$jobid.out"
+	tail -1 $logname
+        exit 0
+    fi
+    if [ $jobstate == "F" ]; then
+        echo "Job failed"
+        exit 2
+    fi
+
+    #assume failed for all other state
+    echo "unknown state: $jobstate"
+    exit 2
+fi
+
 echo "can't determine the status - maybe not yet started?"
 exit 3
 
