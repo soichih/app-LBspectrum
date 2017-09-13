@@ -26,3 +26,29 @@ if [ $ENV == "VM" ]; then
 	nohup time $SERVICE_DIR/submit.pbs > stdout.log 2> stderr.log &
 	echo $! > pid
 fi
+
+if [ $ENV == "SLURM" ]; then
+    
+cat <<EOT > _run.sh
+#!/bin/bash
+#not tested yet..
+#SBATCH --threads-per-core=8
+#export OMP_NUM_THREADS=16 doesn't seem to increase cpu usage beyond 700%
+srun singularity run docker://kitchell/lb_spectrum
+#check for output files
+
+if [ -s 'spectrum.json' ];
+then
+	echo 0 > finished
+else
+	echo "spectrum.json missing"
+	echo 1 > finished
+	exit 1
+fi
+EOT
+    chmod +x _run.sh
+    jobid=$(sbatch _run.sh | cut -d' ' -f4)
+    echo $jobid > slurmjobid
+    echo "submitted $jobid"
+    exit
+fi
