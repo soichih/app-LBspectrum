@@ -7,7 +7,7 @@ RUN git clone https://github.com/nipy/mindboggle.git
 RUN pip install ./mindboggle/
 
 ENV ENV=docker
-#ENV PYTHONPATH /mindboggle:$PYTHONPATH
+ENV PYTHONPATH /mindboggle:$PYTHONPATH
 
 RUN mkdir /app
 COPY main.py /app
