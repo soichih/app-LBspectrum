@@ -13,12 +13,14 @@ RUN mkdir /app
 COPY main.py /app
 COPY environment.yml /app
 
-RUN conda env create -f environment.yml
+RUN /bin/bash -c "conda env create -f /app/environment.yml"
+
+#RUN source activate mindboggle
 
 RUN mkdir /output
 WORKDIR /output
 
 RUN ldconfig
 
-CMD /app/main.py
+ENTRYPOINT ["/bin/bash", "-c", "source activate mindboggle && /app/main.py"]
 
