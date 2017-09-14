@@ -32,7 +32,7 @@ for file in glob.glob(config['surfdir'] + "/*.vtk"):
 
 count=0
 for file in glob.glob(config['surfdir'] + "/*.vtk"):
-    print (str(datetime.now())+" "+str(count)+" of "+str(total)+" processing "+file)
+    print (str(datetime.now())+"\n"+str(count)+" of "+str(total)+" processing "+file)
     spectrum = laplace_beltrami.spectrum_from_file(file, spectrum_size=spectrum_size, normalization=normalization)
     all_spectrums[os.path.basename(file)] = spectrum
     count+=1
