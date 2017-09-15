@@ -1,26 +1,17 @@
-FROM continuumio/anaconda
+
+FROM neurodebian:nd16.04
+
 MAINTAINER Lindsey Kitchell <kitchell@indiana.edu>
 
-RUN apt-get update && apt-get install -y git
+RUN apt update && \
+    apt install -y git python-vtk python-numpy python-scipy
 
-RUN git clone https://github.com/nipy/mindboggle.git
-RUN pip install ./mindboggle/
+RUN git clone https://github.com/nipy/mindboggle.git /mindboggle && \
+    cd /mindboggle && python setup.py install
+COPY main.py /main.py
 
-ENV ENV=docker
-ENV PYTHONPATH /mindboggle:$PYTHONPATH
+RUN mkdir /output && ldconfig
 
-RUN mkdir /app
-COPY main.py /app
-COPY environment.yml /app
-
-RUN /bin/bash -c "conda env create -f /app/environment.yml"
-
-#RUN source activate mindboggle
-
-RUN mkdir /output
 WORKDIR /output
-
-RUN ldconfig
-
-ENTRYPOINT ["/bin/bash", "-c", "source activate mindboggle && /app/main.py"]
+ENTRYPOINT ["/main.py"]
 

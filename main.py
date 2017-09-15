@@ -2,6 +2,7 @@
 import os
 import sys
 
+#I think this should go to start.sh
 env = os.environ['ENV']
 if env == 'IUHPC':
     sys.path.append("/N/u/brlife/Carbonate/git/mindboggle")

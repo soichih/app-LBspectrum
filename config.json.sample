@@ -1,0 +1,5 @@
+{
+	"spectrum_size": 10,
+	"normalization": "areaindex",
+	"surfdir": "testdata/surfaces"
+}

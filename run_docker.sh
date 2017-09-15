@@ -1,4 +1,4 @@
-docker run --rm -it \
-        -v /host/input:/input \
+docker run -e ENV=docker --rm -it \
+        -v `pwd`/testdata:/input \
         -v `pwd`:/output \
-        brainlife/lb_spectrum
+        lb_spectrum
