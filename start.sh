@@ -31,12 +31,7 @@ if [ $ENV == "SLURM" ]; then
     
 cat <<EOT > _run.sh
 #!/bin/bash
-#not tested yet..
-#SBATCH --threads-per-core=8
-#export OMP_NUM_THREADS=16 doesn't seem to increase cpu usage beyond 700%
 srun singularity run docker://kitchell/lb_spectrum
-#check for output files
-
 if [ -s 'spectrum.json' ];
 then
 	echo 0 > finished
