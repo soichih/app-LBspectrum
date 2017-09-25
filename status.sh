@@ -30,8 +30,8 @@ if [ -f jobid ]; then
         exit 2
     fi
     if [ $jobstate == "Q" ]; then
-        echo "Waiting in the queue"
         eststart=`showstart $jobid | grep start`
+        echo "Waiting in the queue $eststart"
         [ -n "$PROGRESS_URL" ] && curl -s -X POST -H "Content-Type: application/json" -d "{\"msg\":\"Waiting in the PBS queue : $eststart\"}" $PROGRESS_URL > /dev/null
         exit 0
     fi
@@ -59,8 +59,8 @@ if [ -f slurmjobid ]; then
         exit 2
     fi
     if [ $jobstate == "PD" ]; then
-        echo "Waiting in the queue"
-        eststart=`showstart $jobid | grep start`
+        eststart=`squeue -h -o "%S" -j $jobid`
+        echo "Waiting in the queue -- start_time $eststart"
         #curl -X POST -H "Content-Type: application/json" -d "{\"msg\":\"Waiting in the PBS queue : $eststart\"}" $PROGRESS_URL
         exit 0
     fi
