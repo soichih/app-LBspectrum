@@ -15,7 +15,7 @@ if [ $ENV == "IUHPC" ]; then
 		module load anaconda2
 	fi
 	if [ $HPC == "CARBONATE" ]; then
-		module load anaconda/python2.7/4.3.1
+		module load anaconda/python2.7
 	fi
 	
 fi
